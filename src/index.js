@@ -7,31 +7,43 @@ var errorResponses = [];
 var handlers = {
 
     'LaunchRequest': function () {
-        this.emit(':tell', 'Hello World!');
+      this.emit(':tell', 'Hello World!');
     },
     'PlayIntent': function () {
-      //construct uri component --> encodeURIComponent(room)
-      var url = options.baseUrl + '/resumeall';
-      //makeCall
-      var response = makeCall(url);
-      //pass in response json to generateResponse(response)
-      this.emit(':tell', generateResponse());
+      var path = '/play';
+      var response = makeCall(path);
+      this.emit(':tell', generateResponse(response));
+    },
+    'PauseIntent': function () {
+      var path = '/pause';
+      var response = makeCall(path);
+      this.emit(':tell', generateResponse(response));
+    },
+    'VolumeIntent': function () {
+      //insert intent.slots to get volume as argument
+      var path = '/volume' + '/+10';
+      var response = makeCall(path);
+      this.emit(':tell', generateResponse(response));
     }
 
 };
 
 function makeCall(path) {
-  var url = path;
-  var request = options;
+  var request = {
+        host: options.host,
+        port: options.port,
+        path: path,
+        headers: options.headers
+    };
   return httpClient(request).then(
-      response => this.emit(':tell', generateResponse(response)),
-      error => this.emit(':tell', generateResponse(error))
+      response => generateResponse(response),
+      error => generateResponse(error)
   )
 };
 
 function generateResponse(response) {
   //TODO: check stats, on error provide errorResponse
-  var index = Math.floor(Math.random() * successResponses.length;
+  var index = Math.floor(Math.random() * successResponses.length);
   return successResponses[index];
 }
 

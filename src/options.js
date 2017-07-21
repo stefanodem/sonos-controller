@@ -1,18 +1,15 @@
 var username = getDefault('AUTH_USERNAME', 'basic_auth_username');
 var password = getDefault('AUTH_PASSWORD', 'basic_auth_password');
 
-var auth = new Buffer(username + ":" + password).toString("base64");
-
 var options = {
-  appid: getDefault('APPID', 'yourappidhere'),
-  host: getDefault('HOST', 'yourhosthere'),
+  appid: getDefault('APPID', 'appIdhere'),
+  host: getDefault('HOST', 'hosthere'),
   port: getDefault('PORT', '5005'),
   headers: {
-      'Authorization': 'Basic ' + auth,
+      //'Authorization': 'Basic ' + auth,
       'Content-Type': 'application/json'
   },
-  defaultRoom: '/Living Room',
-  baseUrl: 'http://localhost:5005/Living Room'
+  defaultRoom: '/LivingRoom'
 };
 
 module.exports = options;

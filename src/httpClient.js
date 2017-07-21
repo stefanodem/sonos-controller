@@ -1,8 +1,10 @@
 var http = require('http');
+var axios = require('axios');
 
 var httpClient = function(options) {
   return new Promise((resolve, reject) => {
-    const request = http.get(options, (response) => {
+    console.log('promise')
+    http.get(options, (response) => {
       if (response.statusCode < 200 || response.statusCode > 299) {
         reject(new Error('Failed to retrievce data, status code: ' + response.statusCode));
       }
@@ -11,9 +13,7 @@ var httpClient = function(options) {
       response.on('data', chunk => body.push(chunk));
 
       response.on('end', () => resolve(body.join('')));
-    });
-
-    request.on('error', err => reject(err))
+    }).on('error', err => reject(err))
   })
 };
 

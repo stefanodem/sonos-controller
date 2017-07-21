@@ -1,0 +1,16 @@
+{
+  "name": "sonos-controller",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "zip": "cd src; chmod a+r *.js; zip src.zip *.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "alexa-sdk": "^1.0.11",
+    "axios": "^0.16.2"
+  }
+}
